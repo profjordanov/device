@@ -1,0 +1,12 @@
+cordova create device
+
+cordova platform add browser
+
+cordova-jquery
+
+npm install -g cordova-simulate
+
+cordova platform add android
+
+	<meta http-equiv="Content-Security-Policy"
+		content="default-src *; style-src 'self' http://* 'unsafe-inline'; img-src 'self' data:; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
