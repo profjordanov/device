@@ -13,27 +13,11 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "devDependencies": {
-    "cordova-android": "^10.1.1",
-    "cordova-browser": "^6.0.0",
-    "cordova-plugin-battery-status": "^2.0.3",
-    "cordova-plugin-device": "^2.0.3",
-    "cordova-plugin-dialogs": "^2.0.2",
-    "cordova-plugin-geolocation": "^4.1.0",
-    "cordova-plugin-network-information": "^3.0.0"
+    "cordova-browser": "^6.0.0"
   },
   "cordova": {
     "platforms": [
-      "browser",
-      "android"
-    ],
-    "plugins": {
-      "cordova-plugin-battery-status": {},
-      "cordova-plugin-device": {},
-      "cordova-plugin-network-information": {},
-      "cordova-plugin-dialogs": {},
-      "cordova-plugin-geolocation": {
-        "GPS_REQUIRED": "true"
-      }
-    }
+      "browser"
+    ]
   }
 }
