@@ -1,3 +1,8 @@
+const baseSurviceUrl = "https://baas.kinvey.com/appdata/kid_SJkIP-gW2/positions";
+const kinveyUsername = "kid_SJkIP-gW2";
+const kinveyPassword = "00c13577bed24b2588d276a003fea5eb";
+const base64Auth = btoa(kinveyUsername + ":" + kinveyPassword);
+
 document.addEventListener('deviceready', onDeviceReady, false);
 
 window.addEventListener("batterystatus", onBatteryStatus, false);
@@ -8,6 +13,28 @@ function onDeviceReady() {
     applyDeviceData(device);
     checkConnection();
     navigator.geolocation.watchPosition(geolocationSuccess, geolocationError);
+    $("#camera-btn").click(getPicture);
+}
+
+function getPicture() {
+    navigator.camera.getPicture(
+        cameraSuccess,
+        cameraError, {
+            quality: 25,
+            destinationType: Camera.DestinationType.DATA_URL
+        }
+    );
+}
+
+function cameraSuccess(imageData) {
+    console.log(imageData);
+    $("#myImage").attr('src', 'data:image/jpeg;base64,' + imageData);
+    //$("#myImage").show();
+    $("#myImage").css('display', 'block');
+}
+
+function cameraError(message) {
+    alert(message);
 }
 
 function geolocationSuccess(position) {
@@ -15,6 +42,31 @@ function geolocationSuccess(position) {
     $('#longitude').text(position.coords.longitude);
     $('#altitude').text(position.coords.altitude);
     $('#speed').text(position.coords.speed);
+    console.log(position);
+    $('#accuracy').text(position.coords.accuracy);
+    $('#altitudeAccuracy').text(position.coords.altitudeAccuracy);
+    savePosition(position);
+}
+
+function savePosition(position) {
+    let entity = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+    };
+
+    $.ajax({
+        type: "POST",
+        url: baseSurviceUrl,
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(entity),
+        success: function () {
+            alert("success")
+        },
+        error: function () {
+            alert("error");
+        }
+    });
 }
 
 function geolocationError(error) {

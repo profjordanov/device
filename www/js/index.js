@@ -1,3 +1,8 @@
+const baseSurviceUrl = "https://baas.kinvey.com/appdata/kid_H1q6ZXe-n/positions";
+const kinveyUsername = "kid_H1q6ZXe-n";
+const kinveyPassword = "c7fb093fa8064bf6b8a0ebb3ef724fee";
+const base64Auth = btoa(kinveyUsername + ":" + kinveyPassword);
+
 document.addEventListener('deviceready', onDeviceReady, false);
 
 window.addEventListener("batterystatus", onBatteryStatus, false);
@@ -8,6 +13,28 @@ function onDeviceReady() {
     applyDeviceData(device);
     checkConnection();
     navigator.geolocation.watchPosition(geolocationSuccess, geolocationError);
+    $("#camera-btn").click(getPicture);
+}
+
+function getPicture() {
+    navigator.camera.getPicture(
+        cameraSuccess,
+        cameraError, {
+            quality: 25,
+            destinationType: Camera.DestinationType.DATA_URL
+        }
+    );
+}
+
+function cameraSuccess(imageData) {
+    console.log(imageData);
+    $("#myImage").attr('src', 'data:image/jpeg;base64,' + imageData);
+    //$("#myImage").show();
+    $("#myImage").css('display', 'block');
+}
+
+function cameraError(message) {
+    alert(message);
 }
 
 function geolocationSuccess(position) {
@@ -15,6 +42,36 @@ function geolocationSuccess(position) {
     $('#longitude').text(position.coords.longitude);
     $('#altitude').text(position.coords.altitude);
     $('#speed').text(position.coords.speed);
+    console.log(position);
+    $('#accuracy').text(position.coords.accuracy);
+    $('#altitudeAccuracy').text(position.coords.altitudeAccuracy);
+    savePosition(position);
+}
+
+function savePosition(position) {
+    let entity = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+    };
+
+    $.ajax({
+        type: "POST",
+        url: baseSurviceUrl,
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Basic " + base64Auth);
+        },
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(entity),
+        success: function () {
+            alert("Successfully added!");
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+            alert("Status: " + textStatus);
+            alert("Error: " + errorThrown);
+        }
+    });
 }
 
 function geolocationError(error) {

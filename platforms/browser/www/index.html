@@ -118,36 +118,49 @@
 				Altitude :
 				<span id="altitude"></span>
 			</li>
+			<li>
+				Accuracy
+				<span id="accuracy"></span>
+			</li>
+			<li>
+				Altitude Accuracy
+				<span id="altitudeAccuracy"></span>
+			</li>
 		</ul>
 
 		<footer data-role="footer" data-position="fixed">
 			<h4>
 				<a href="#main-page" data-transition="slide" data-role="button"
 					class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-arrow-l">Info</a>
+				<a href="#camera-page" data-transition="slide" data-role="button"
+					class="ui-btn ui-shadow ui-corner-all ui-btn-icon-right ui-icon-arrow-r">Camera</a>
 			</h4>
 		</footer>
 	</div><!-- /page2 -->
 
 	<!-- page 3 -->
-	<div data-role="page" id="page3">
-		<div data-role="header">
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#page1">Page 1</a></li>
-					<li><a href="#page2">Page 2</a></li>
-					<li><a href="#page3" class="ui-btn-active ui-state-persist">Page 3</a></li>
-				</ul>
-			</div><!-- /navbar -->
+	<div data-role="page" id="camera-page">
+		<div data-role="header" class="header">
+			<h1 id="app-title">MyDevice App</h1>
+			<a href="/" class="ui-btn ui-btn-left ui-btn-corner-all ui-icon-home ui-btn-icon-notext"
+				rel="external">Home</a>
 		</div>
 
 		<div class="ui-content">
-			<p>This is page 3</p>
-		</div><!-- end page 3 content -->
+			<button id="camera-btn" data-role="button" data-icon="camera">
+				CLICK
+			</button>
+			<img src="#" alt="text" id="myImage" class="not-displayed" style="margin: auto;" />
+		</div>
 
 		<div data-role="footer" data-position="fixed">
-			<h1>Page3</h1>
+			<h4>
+				<a href="#geolocation-page" data-transition="slide" data-role="button"
+					class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-location">GPS</a>
+			</h4>
 		</div><!-- /footer -->
 	</div><!-- /page3 -->
+
 	<script src="cordova.js"></script>
 	<script type="text/javascript" src="js/jquery-1.11.1.min.js" id="cordova-jquery"></script>
 	<script type="text/javascript" id="jqm-trans-disable">
