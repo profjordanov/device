@@ -15,6 +15,9 @@ function geolocationSuccess(position) {
     $('#longitude').text(position.coords.longitude);
     $('#altitude').text(position.coords.altitude);
     $('#speed').text(position.coords.speed);
+    console.log(position);
+    $('#accuracy').text(position.coords.accuracy);
+    $('#altitudeAccuracy').text(position.coords.altitudeAccuracy);
 }
 
 function geolocationError(error) {
