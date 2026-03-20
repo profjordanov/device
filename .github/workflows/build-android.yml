@@ -29,11 +29,6 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Setup Gradle 7.x
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '7.6.4'
-
       - name: Install Cordova CLI
         run: npm install -g cordova
 
@@ -42,6 +37,14 @@ jobs:
 
       - name: Add Android platform
         run: cordova platform add android
+
+      - name: Upgrade Gradle wrapper to support JDK 17
+        run: |
+          cd platforms/android
+          sed -i 's|gradle-7.1.1-all.zip|gradle-7.6.4-all.zip|g' gradle/wrapper/gradle-wrapper.properties
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
       - name: Build APK
         run: cordova build android
