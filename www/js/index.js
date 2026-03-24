@@ -1,7 +1,4 @@
-const baseSurviceUrl = "https://baas.kinvey.com/appdata/kid_H1q6ZXe-n/positions";
-const kinveyUsername = "kid_H1q6ZXe-n";
-const kinveyPassword = "c7fb093fa8064bf6b8a0ebb3ef724fee";
-const base64Auth = btoa(kinveyUsername + ":" + kinveyPassword);
+const baseSurviceUrl = "https://students-manager-dev.azurewebsites.net/api/events";
 
 document.addEventListener('deviceready', onDeviceReady, false);
 
@@ -57,12 +54,13 @@ function savePosition(position) {
     $.ajax({
         type: "POST",
         url: baseSurviceUrl,
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader("Authorization", "Basic " + base64Auth);
-        },
         contentType: "application/json",
         dataType: "json",
-        data: JSON.stringify(entity),
+        data: JSON.stringify({
+            userId: "022a6007-f33c-47c3-b811-08de88b121f2",
+            type: "geolocation-position-drj",
+            data: JSON.stringify(entity)
+        }),
         success: function () {
             alert("Successfully added!");
         },
